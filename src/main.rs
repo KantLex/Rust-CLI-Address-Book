@@ -95,4 +95,17 @@ fn read_input(prompt: &str) -> String {
     input.trim().to_string()
 }
 
+fn list_contacts(contacts: &Vec<Contact>) {
+    println!("\nContacts:");
+
+    if contacts.is_empty() {
+        println!("No contacts found");
+        return;
+    } 
+
+    for (i, contact) in contacts.iter().enumerate() {
+        println!("{}. {}", i + 1, contact.name);
+        }
+
+}
 
