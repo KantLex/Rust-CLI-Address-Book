@@ -56,5 +56,27 @@ fn show_menu() -> MenuChoice {
     }
 }
 
+fn add_contact(contacts: $mut Vec<Contact>) {
+    println!("\nAdd a New Contact");
 
+    let name = read_input("Name: ");
+    let phone = read_input("Phone: ");
+    let email_input = read_input("Email (optional): ");
+
+    let emial = if email_input.is_empty() {
+        None
+    } else {
+        Some(email_input)
+    };
+
+    let contact = Contact {
+        name,
+        phone,
+        email,
+    };
+
+    contacts.push(contact);
+
+    println!("Contact added!");
+}
 
