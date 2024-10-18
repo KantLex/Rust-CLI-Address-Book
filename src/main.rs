@@ -115,7 +115,7 @@ fn search_contacts(contacts: &[Contact]) {
 
     let query = read_input("Enter name to search: ").to_lowercase();
 
-    let mut results: Vec<&Contact> = contacts
+    let results: Vec<&Contact> = contacts
         .iter()
         .filter(|c| c.name.to_lowercase().contains(&query))
         .collect();
