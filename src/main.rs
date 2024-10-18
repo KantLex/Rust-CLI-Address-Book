@@ -37,7 +37,7 @@ fn show_menu() -> MenuChoice {
     println!("3. Search contacts");
     println!("4. Quit");
     println!("Enter your choice:");
-    io::std out().flush().expect("Failed to flush stdout");
+    io::stdout().flush().expect("Failed to flush stdout");
 
     let mut choice = String::new();
     io::stdin()
@@ -56,14 +56,14 @@ fn show_menu() -> MenuChoice {
     }
 }
 
-fn add_contact(contacts: $mut Vec<Contact>) {
+fn add_contact(contacts: &mut Vec<Contact>) {
     println!("\nAdd a New Contact");
 
     let name = read_input("Name: ");
     let phone = read_input("Phone: ");
     let email_input = read_input("Email (optional): ");
 
-    let emial = if email_input.is_empty() {
+    let email = if email_input.is_empty() {
         None
     } else {
         Some(email_input)
@@ -109,3 +109,31 @@ fn list_contacts(contacts: &Vec<Contact>) {
 
 }
 
+
+fn search_contacts(contacts: &[Contact]) {
+    println!("\nSearch Contacts");
+
+    let query = read_input("Enter name to search: ").to_lowercase();
+
+    let mut results: Vec<&Contact> = contacts
+        .iter()
+        .filter(|c| c.name.to_lowercase().contains(&query))
+        .collect();
+
+    if results.is_empty() {
+        println!("No contacts found matching '{}'.", query);
+        return;
+    }
+
+    println!("\nSearch Results:");
+
+    for (i, contact) in results.iter().enumerate() {
+        println!(
+            "{}. {} - Phone: {}, Email: {}",
+            i + 1,
+            contact.name,
+            contact.phone,
+            contact.email.clone().unwrap_or("N/A".to_string())
+        );
+    }
+}
